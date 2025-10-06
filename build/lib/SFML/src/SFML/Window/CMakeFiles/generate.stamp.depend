@@ -1,0 +1,6 @@
+# CMake generation dependency list for this directory.
+C:/Program Files/CMake/share/cmake-4.1/Modules/FindOpenGL.cmake
+C:/Program Files/CMake/share/cmake-4.1/Modules/FindPackageHandleStandardArgs.cmake
+C:/Program Files/CMake/share/cmake-4.1/Modules/FindPackageMessage.cmake
+C:/Users/40683985/space_invaders/lib/SFML/src/SFML/Window/CMakeLists.txt
+C:/Users/40683985/space_invaders/lib/SFML/tools/windows/resource.rc.in

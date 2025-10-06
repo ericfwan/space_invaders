@@ -1,0 +1,24 @@
+{
+  "version": "0.2.1",
+  "defaults": {},
+  "configurations": [
+    {
+      "type": "default",
+      "project": "CMakeLists.txt",
+      "projectTarget": "space_invaders.exe (bin\\space_invaders.exe)",
+      "name": "space_invaders.exe (bin\\space_invaders.exe)"
+    },
+    {
+      "type": "default",
+      "project": "CMakeLists.txt",
+      "projectTarget": "space_invaders.exe (bin\\space_invaders.exe)",
+      "name": "space_invaders.exe (bin\\space_invaders.exe)"
+    },
+    {
+      "type": "default",
+      "project": "CMakeLists.txt",
+      "projectTarget": "space_invaders.exe (bin\\space_invaders.exe)",
+      "name": "space_invaders.exe (bin\\space_invaders.exe)"
+    }
+  ]
+}

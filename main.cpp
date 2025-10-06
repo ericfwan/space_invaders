@@ -1,64 +1,66 @@
-#include <SFML/Graphics.hpp>
-#include <iostream>
-
-using namespace sf;
+#include <SFML/Graphics.hpp>  // SFML graphics library (sprites, textures, windows)
+#include <iostream>            // For std::cerr and std::cout debugging
 
 // -----------------------------
-// Game objects
+// Global variables
 // -----------------------------
-sf::Texture invaderTexture;
-sf::Sprite invader;
-
-// Window size
-const int gameWidth = 800;
-const int gameHeight = 600;
+sf::Texture spritesheet;  // Holds the sprite sheet image
+sf::Sprite invader;       // Represents a single sprite from the sheet
 
 // -----------------------------
-// Initialise game
+// Initialization function
 // -----------------------------
 void init() {
-    // Load sprite sheet
-    if (!invaderTexture.loadFromFile("img/invaders_sheet.png")) { // path relative to res
-        std::cerr << "Failed to load spritesheet!" << std::endl;
+    // First, try to load the sprite sheet assuming running inside Visual Studio IDE
+    std::string path = "img/invaders_sheet.png";  
+    if (!spritesheet.loadFromFile(path)) {
+        // If that fails, try running from build/bin (after CMake copy)
+        path = "../resources/img/invaders_sheet.png";  
+        if (!spritesheet.loadFromFile(path)) {
+            // If it still fails, print an error and stop initialization
+            std::cerr << "Failed to load sprite sheet from any path!" << std::endl;
+            return;
+        }
     }
-    invader.setTexture(invaderTexture);
 
-    // Select the first sprite (top-left 32x32)
-    invader.setTextureRect(IntRect(0, 0, 32, 32));
+    // Assign the texture to the sprite
+    invader.setTexture(spritesheet);
 
-    // Position invader in middle
-    invader.setPosition(gameWidth / 2.f, gameHeight / 2.f);
+    // Set the portion of the sprite sheet to use (top-left 32x32 pixels)
+    invader.setTextureRect(sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(32, 32)));
 }
 
 // -----------------------------
-// Render everything
+// Render function
 // -----------------------------
 void render(sf::RenderWindow& window) {
-    window.draw(invader);
+    window.clear(sf::Color::Black); // Clear the window with black
+    window.draw(invader);            // Draw the sprite
+    window.display();                // Display the rendered frame
 }
 
 // -----------------------------
 // Main function
 // -----------------------------
 int main() {
-    sf::RenderWindow window(sf::VideoMode(gameWidth, gameHeight), "Space Invaders");
+    // Create a window of size 800x600 with title "Space Invaders"
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Space Invaders");
 
+    // Initialize the sprite and load the texture
     init();
 
-    sf::Clock clock;
+    // Main game loop runs while the window is open
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
+            // Close window if the close button is pressed
             if (event.type == sf::Event::Closed)
                 window.close();
         }
 
-        // Update logic can go here (animation, movement, etc.)
-
-        window.clear(sf::Color::Black);
+        // Render the frame
         render(window);
-        window.display();
     }
 
-    return 0;
+    return 0; // Exit program
 }
