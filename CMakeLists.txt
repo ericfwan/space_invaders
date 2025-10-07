@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.11)
+project(SpaceInvaders)
 
 # Require modern C++
 set(CMAKE_CXX_STANDARD 14)
@@ -10,23 +11,27 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 # -----------------------------
-# Add SFML library
+# SFML setup (prebuilt)
 # -----------------------------
-# Assumes SFML source or prebuilt is in lib/SFML
-add_subdirectory("lib/SFML")
-set(SFML_INCS "lib/SFML/include")
-link_directories("${CMAKE_BINARY_DIR}/lib/SFML/lib")
+set(SFML_DIR "${CMAKE_SOURCE_DIR}/lib/SFML")  # Path to your SFML prebuilt folder
+set(SFML_INCLUDE_DIR "${SFML_DIR}/include")
+set(SFML_LIB_DIR "${SFML_DIR}/lib")
+
+# Include SFML headers
+include_directories(${SFML_INCLUDE_DIR})
+link_directories(${SFML_LIB_DIR})
 
 # -----------------------------
 # Add executable
 # -----------------------------
 add_executable(space_invaders main.cpp)
 
-# Include SFML headers
-target_include_directories(space_invaders PRIVATE ${SFML_INCS})
-
-# Link SFML libraries
-target_link_libraries(space_invaders sfml-graphics sfml-window sfml-system)
+# Link SFML libraries (debug/release versions if needed)
+target_link_libraries(space_invaders
+    sfml-graphics-s
+    sfml-window-s
+    sfml-system-s
+)
 
 # -----------------------------
 # Set working directory for IDE (so resources folder works)
